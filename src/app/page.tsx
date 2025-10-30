@@ -6,7 +6,6 @@ import { useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Download } from "lucide-react"
 
 export default function Home() {
   const { data: session, status } = useSession()
@@ -43,7 +42,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         <Card>
           <CardHeader>
             <CardTitle>Get Started</CardTitle>
@@ -69,25 +68,6 @@ export default function Home() {
             <Link href="/register">
               <Button variant="outline" className="w-full">Sign Up</Button>
             </Link>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Download Project</CardTitle>
-            <CardDescription>
-              Get the complete source code to run locally
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button 
-              variant="secondary" 
-              className="w-full"
-              onClick={() => window.open('/api/download', '_blank')}
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Download .tar.gz
-            </Button>
           </CardContent>
         </Card>
       </div>
