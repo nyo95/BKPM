@@ -96,6 +96,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    // Check if user has permission to create projects
+    const userRole = session.user.role
+    if (!['admin', 'pm'].includes(userRole)) {
+      return NextResponse.json({ error: "Insufficient permissions" }, { status: 403 })
+    }
+
     const body = await req.json()
     const { name, clientName, startDate, endDate, description } = createProjectSchema.parse(body)
 
@@ -113,6 +119,7 @@ export async function POST(req: NextRequest) {
         startDate,
         endDate,
         description,
+        organizationId: session.user.organizationId,
         createdBy: session.user.id
       }
     })

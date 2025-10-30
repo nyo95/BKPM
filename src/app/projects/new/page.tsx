@@ -28,8 +28,14 @@ export default function NewProjectPage() {
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login")
+    } else if (status === "authenticated" && session) {
+      // Check if user has permission to create projects
+      const userRole = session.user.role
+      if (!['admin', 'pm'].includes(userRole)) {
+        router.push("/dashboard")
+      }
     }
-  }, [status, router])
+  }, [status, session, router])
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
